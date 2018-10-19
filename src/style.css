@@ -1,0 +1,68 @@
+i.file {
+    width: 18px;
+    height: 18px;
+    background: url(./img/file.svg) no-repeat;
+    background-size: cover;
+}
+i.github {
+    display: inline-block;
+    margin-left: .2rem;
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    top: .5rem;
+    background: url(./img/github.svg) no-repeat;
+    background-size: cover;
+}
+i.open {
+    display: inline-block;
+    position: relative;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    background: url(./img/open.svg) no-repeat;
+    background-size: cover;
+}
+i.save {
+    display: inline-block;
+    position: relative;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    background-image: url(./img/save.svg);
+}
+.btn.dir::before {
+    content: ' ';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(./img/dir.svg) no-repeat;
+    background-size: cover;
+    transition: background .15s;
+}
+.btn.dir:hover::before {
+
+    background: url(./img/dir-active.svg) no-repeat;
+    background-size: cover;
+}
+.btn.del::before {
+    content: ' ';
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background: url(./img/delete.svg) no-repeat;
+    background-size: cover;
+}
+footer {
+    text-align: center;
+}
+.file-tree input[type=checkbox] {
+    width: 16px;
+    height: 16px;
+}
+.guide li {
+    padding: 4px 0 4px 0;
+    margin-left: 2rem;
+}

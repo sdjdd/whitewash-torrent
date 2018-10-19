@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <title>BT-Manager</title>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <div>
+      <h1 class="d-inline-block">WHITEWASH YOUR TORRENT</h1>
+      <div style="float:right">STAR👉
+        <a class="github" href="https://github.com/sdjdd/whitewash-torrent">
+          <i class="github"></i>
+        </a>
+      </div>
+    </div>
+    <div class="border-bottom pb-3 pt-3">
+      <button type="button" class="btn btn-dark" @click="upload">
+        <i class="open"></i> 打开种子
+      </button>
+      <button type="button" class="btn btn-dark" @click="save">
+        <i class="save"></i> 保存更改
+      </button>
+    </div>
+    <div class="file-tree pt-3" v-show="files">
+      <div class="row mb-3 tree-controls">
+        <div class="col-6">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-secondary btn-sm" @click="checkAll">全选</button>
+            <button type="button" class="btn btn-secondary btn-sm" @click="invertCheck">反选</button>
+          </div>
+          <button type="button" class="btn btn-danger btn-sm" @click="deleteChecked">删除选中</button>
+        </div>
+        <div class="col-6">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend ">
+              <span class="input-group-text">新文件名</span>
+            </div>
+            <input type="text" class="form-control" v-model="filename">
+          </div>
+        </div>
+      </div>
+      <item v-if="files" :file="files" :key="files.id"></item>
+    </div>
+    <div class="d-flex justify-content-center guide">
+      <div class="mt-5 mb-5" style="display:inline-block" v-show="!files">
+          <div style="font-size:1.5rem">开始使用：</div>
+          <ol class="mt-1" style="font-size:1.2rem">
+            <li>点击 <span class="font-weight-bold">打开种子</span> 编辑要修改的 BitTorrent 种子文件</li>
+            <li>点击文件名右侧的 <span class="text-danger font-weight-bold">红色</span> 按钮删除不需要的文件</li>
+            <li>重新编辑敏感文件的文件名</li>
+            <li>点击 <span class="font-weight-bold">保存更改</span> 下载更改后的种子</li>
+            <li>( • ̀ω ⁃᷄)✧ Enjoy~ (🐑神别撸了)</li>
+          </ol>
+      </div>
+    </div>
+    <footer class="m-3">
+      sdjdd @ <span id="year">2018</span>
+    </footer>
+  </div>
+<script id="item-template" type="text/x-template">
+  <div>
+    <div class="input-group input-group-sm mt-2">
+      <div class="input-group-prepend">
+        <button class="btn btn-outline-secondary dir" type="button" 
+                data-toggle="collapse" 
+                :data-target="'#collapse-'+file.id" 
+                v-if="file.children"></button>
+        <span class="input-group-text" v-else><i class="file"></i></span>
+        <span class="input-group-text" v-if="file.id !== 1">
+          <input type="checkbox" v-if="file.children" :checked="checked" @click.prevent="changeChecked">
+          <input type="checkbox" v-else v-model="file.checked">
+        </span>
+      </div>
+      <input type="text" class="form-control" v-model="file.name">
+      <div class="input-group-append">
+        <span class="input-group-text" style="min-width:6.2em">{{ convertLength }}</span>
+        <button class="btn btn-danger del" type="button" v-if="file.id !== 1" @click="deleteFile"></button>
+      </div>
+    </div>
+    <div class="collapse show" :id="'collapse-'+file.id" v-if="file.children">
+      <div class="card card-body border-top-0 pt-0 pl-2 pr-2 pb-2">
+          <item v-for="file in file.children"
+                :file="file"
+                :key="file.id"></item>
+      </div>
+    </div>
+  </div>
+</script>
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.slim.min.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.14.4/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="../dist/bt.min.js"></script>
+<script>
+  $('#year').text(new Date().getFullYear())
+</script>
+</body>
+</html>
