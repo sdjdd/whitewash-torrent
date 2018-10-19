@@ -186,7 +186,7 @@ function getDir(root, pathList) {
 /**
  * 修改所有文件(不包含目录)的checked属性为真
  * @param {Object} root 要修改的对象
- * @param {Boolean} invert 是否反选, 反选时只修改文件, 不修改目录
+ * @param {Boolean} invert 是否反选
  */
 function check (root, invert=false) {
     if (root.children) {
@@ -209,6 +209,11 @@ function isPaddingFile(filename) {
     return /^_____padding_file_\d+_/.test(filename)
 }
 
+/**
+ * 将文件转换为占位文件
+ * @param {String} filename 文件名
+ * @param {Number} id 
+ */
 function convertToPaddingFile(filename, id=0) {
     return '_____padding_file_'+id+'_'+filename+'____'
 }
