@@ -256,7 +256,8 @@ function deleteFile(file) {
     if (!isPath) {
         // 删除的是文件
         // 将文件从btData中删除, 必须使用undefined判断可能为0的索引变量
-        let arr = btData.info.files[file.btIndex].path
+        let arr = btData.info.files[file.btIndex]
+        arr = arr['path.utf-8'] || arr['path']
         arr.splice(0, arr.length-1)
         arr[0] = convertToPaddingFile('deleted_by_sdjdd')
         let temp = file, length = file.length
