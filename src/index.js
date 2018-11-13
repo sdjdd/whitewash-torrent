@@ -5,7 +5,7 @@ import bencode from 'bencode'
 import Vue from 'vue/dist/vue.esm'
 import FileManager from './file-manager'
 
-var fileManager = new FileManager()    // 管理文件上传\下载
+var fileManager = new FileManager()    // 管理文件上传|下载
 var btData = null                      // 种子数据
 var decoder = new TextDecoder('utf8')  // 解码器
 
@@ -102,25 +102,24 @@ function decodeFile(file) {
     reader.readAsArrayBuffer(file)
 }
 
-// 将Torrent中的文件信息转化为树形目录格式
+// 将 Torrent 中的文件信息转化为树形目录格式
 function convertToFileTree(bt) {
     let id = 1
-    let rootName = decoder.decode(bt.info['name.utf-8'] || bt.info['name'])  // 目录\单一文件名, 优先使用UTF-8编码
+    let rootName = decoder.decode(bt.info['name.utf-8'] || bt.info['name'])  // 目录|单一文件名, 优先使用UTF-8编码
     let root = {
         id: id++,
-        name: rootName,        // 新文件\目录名, 修改时以此为准
-        originName: rootName,  // 原始文件\目录名
-        //checked: true,         // 视图中该条目的checkbox是否选中, 根目录\单一文件必须选中
-        length: 0,             // 文件\目录大小, 文件可直接获取此属性, 目录则需要递归计算 
+        name: rootName,        // 新文件|目录名, 修改时以此为准
+        originName: rootName,  // 原始文件|目录名
+        length: 0,             // 文件|目录大小, 文件可直接获取此属性, 目录则需要递归计算 
     }
-    // files不存在即为单文件种子
+    // files 不存在即为单文件种子
     if (bt.info.files === undefined) {
         root.length = bt.info.length  // 文件大小(字节)
         return root
     }
     // 否则为多文件种子, 添加根目录所需的属性
     root.children = []       // 目录下的子目录和文件
-    root.pathName = new Map  // 目录下的 目录名=>children[]索引 哈希表, 目录树创建完毕时删除此属性
+    root.pathName = new Map  // 目录下的 目录名 => children[]索引 哈希表, 目录树创建完毕时删除此属性
 
     let index = -1
     bt.info.files.forEach((file) => {
@@ -144,7 +143,7 @@ function convertToFileTree(bt) {
             name: fileName,              // 新文件名, 修改时以此为准
             originName: fileName,        // 原始文件名
             length: file.length,         // 文件大小(字节)
-            index: dir.children.length,  // 文件\目录在其父目录中的索引
+            index: dir.children.length,  // 文件|目录在其父目录中的索引
             btIndex: index,              // btData.info.files[]的索引, 在文件中是整数形式
             checked: false,              // 默认不选中
         })
@@ -174,7 +173,7 @@ function getDir(root, pathList) {
                 checked: false,               // 关联视图的checkbox, 默认不选中
                 depth: depth++,               // btData.info.files[].path[]索引, 只有目录拥有此属性
                 btIndex: [],                  // btData.info.files[]的索引, 在目录中是数组形式
-                index: root.children.length,  // 文件\目录在其父目录中的索引
+                index: root.children.length,  // 文件|目录在其父目录中的索引
             })
             root.pathName.set(pathName, root.children.length-1)
         }
@@ -184,7 +183,7 @@ function getDir(root, pathList) {
 }
 
 /**
- * 修改所有文件(不包含目录)的checked属性为真
+ * 修改所有文件(不包含目录)的 checked 属性为真
  * @param {Object} root 要修改的对象
  * @param {Boolean} invert 是否反选
  */
@@ -219,7 +218,7 @@ function convertToPaddingFile(filename, id=0) {
 }
 
 /**
- * 将文件大小转化为人类友好的字符串
+ * 将文件大小转化为人类可读的字符串
  * @param {Number} length 文件长度(字节)
  * @returns {String} 文件长度字符串
  */
@@ -235,27 +234,26 @@ function convertLength(length) {
 }
 
 /**
- * 递归计算目录大小, 同时删除当前目录下的pathName
+ * 递归计算目录大小, 同时删除当前目录下的 pathName
  * @param {Object} root 根目录
  * @returns {Number} 目录大小
  */
 function setDirLength(root) {
     if (root.children) {
-        delete root.pathName  // 删除不再需要的pathName
+        delete root.pathName  // 删除不再需要的 pathName
         root.children.forEach((child) => root.length += setDirLength(child))
     }
     return root.length
 }
 
 /**
- * 将文件\目录从btData中删除
- * @param {Object} file 要删除的文件\目录
+ * 将文件|目录从 btData 中删除
+ * @param {Object} file 要删除的文件|目录
  */
 function deleteFile(file) {
     let isPath = file.btIndex instanceof Array
     if (!isPath) {
         // 删除的是文件
-        // 将文件从btData中删除, 必须使用undefined判断可能为0的索引变量
         let arr = btData.info.files[file.btIndex]
         arr = arr['path.utf-8'] || arr['path']
         arr.splice(0, arr.length-1)
@@ -301,7 +299,7 @@ function getCheckedList(root, list) {
 }
 
 /**
- * 将更改应用到btData
+ * 将更改应用到 btData
  * @param {Object} root 
  */
 function saveChange(root) {
