@@ -4,6 +4,9 @@ class FileManager {
         this.uploader.type = 'file'
         this.downloader = document.createElement('a')
         this.lastURL = null
+
+        this.downloader.style['display'] = 'none'
+        document.body.appendChild(this.downloader)
     }
     upload(func) {
         this.uploader.onchange = function() {
