@@ -1,7 +1,7 @@
 i.file {
     width: 18px;
     height: 18px;
-    background: url(./img/file.svg) no-repeat;
+    background: url(../img/file.svg) no-repeat;
     background-size: cover;
 }
 i.github {
@@ -11,7 +11,7 @@ i.github {
     height: 2rem;
     position: relative;
     top: .5rem;
-    background: url(./img/github.svg) no-repeat;
+    background: url(../img/github.svg) no-repeat;
     background-size: cover;
 }
 i.open {
@@ -21,7 +21,7 @@ i.open {
     width: 16px;
     height: 16px;
     margin-right: 4px;
-    background: url(./img/open.svg) no-repeat;
+    background: url(../img/open.svg) no-repeat;
     background-size: cover;
 }
 i.save {
@@ -31,20 +31,20 @@ i.save {
     width: 16px;
     height: 16px;
     margin-right: 4px;
-    background-image: url(./img/save.svg);
+    background-image: url(../img/save.svg);
 }
 .btn.dir::before {
     content: ' ';
     display: inline-block;
     width: 20px;
     height: 20px;
-    background: url(./img/dir.svg) no-repeat;
+    background: url(../img/dir.svg) no-repeat;
     background-size: cover;
     transition: background .15s;
 }
 .btn.dir:hover::before {
 
-    background: url(./img/dir-active.svg) no-repeat;
+    background: url(../img/dir-active.svg) no-repeat;
     background-size: cover;
 }
 .btn.del::before {
@@ -52,7 +52,7 @@ i.save {
     width: 20px;
     height: 20px;
     display: inline-block;
-    background: url(./img/delete.svg) no-repeat;
+    background: url(../img/delete.svg) no-repeat;
     background-size: cover;
 }
 footer {
