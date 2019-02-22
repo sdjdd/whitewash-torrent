@@ -1,12 +1,14 @@
+const path = require('path')
+
 const config = {
     mode: 'production',
     entry: './src/index.js',
     output: {
-        path: __dirname + '/dist',
-        filename: 'bt.min.js',
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.min.js',
     },
     devServer: {
-        contentBase: __dirname + '/src',
+        contentBase: path.resolve(__dirname, 'demo'),
         publicPath: '/dist',
     },
     module: {
